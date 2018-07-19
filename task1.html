@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>我是精明的小卖家(一)selecte</title>
+	<link rel="stylesheet" href="task1.css">
+</head>
+<body>
+	<span class="name">地区:</span>
+	<select id="region-select">
+	    <option>华东</option>
+	    <option>华北</option>
+	    <option>华南</option>
+	</select>
+	<span class="name">商品:</span>
+	<select id="product-select">
+	    <option>手机</option>
+	    <option>笔记本</option>
+	    <option>智能音箱</option>
+	</select>
+	<span class="name">月份:</span>
+	<select id="month-select">
+	    <option>1月</option>
+	    <option>2月</option>
+	    <option>3月</option>
+	    <option>4月</option>
+	    <option>5月</option>
+	    <option>6月</option>
+	    <option>7月</option>
+	    <option>8月</option>
+	    <option>9月</option>
+	    <option>10月</option>
+	    <option>11月</option>
+	    <option>12月</option>    
+	</select>
+
+	<div id="table-wrapper">
+	</div>
+</body>
+<script>
+	var obj_region=document.getElementById('region-select');
+	var obj_product=document.getElementById('product-select');
+	var obj_month=document.getElementById('month-select');
+	var t=document.getElementById('table-wrapper');
+	 
+	obj_region.onchange= function() {//region-select的change事件
+	    createTable(getCondition());
+	    //createTable(d);//渲染新的表格(根据select选项获取数据)
+	}
+	obj_product.onchange= function() {//product-select的change事件
+	   createTable(getCondition());
+	   // createTable(d);//渲染新的表格(根据select选项获取数据)
+	}
+
+	function getCondition() {//根据select选项获取数据
+		var or=obj_region.options[obj_region.selectedIndex].value;
+		var op=obj_product.options[obj_product.selectedIndex].value;
+		var om=obj_month.options[obj_month.selectedIndex].value;//不能放在外面，任意select改变了，orop内容跟着改变
+	    var filterResult=sourceData.filter(function(item,index,array){
+	    	return(item.region===or&&item.product===op)
+	    });
+	   // console.log(filterResult);
+	    return filterResult;//返回数据
+	}
+
+	function createTable(data) {
+		var or=obj_region.options[obj_region.selectedIndex].value;
+		var op=obj_product.options[obj_product.selectedIndex].value;
+		var om=obj_month.options[obj_month.selectedIndex].value;
+	    var str='<table><tr><th>商品</th><th>地区</th>';//输出表头：商品、地区、1月、2月、…… 12月
+	    for (var i = 1; i <= 12; i++) {
+	    	str+='<th>'+i+'月'+'</th>';
+	    }
+	    str+='</tr>';
+	    str+='<tr><td>';
+	    str+=op;
+	    str+='</td><td>';
+	    str+=or;
+	    str+='</td>';
+	    for (var i = 0; i < data[0].sale.length; i++) {//遍历数据,输出每一行的表格HTML内容
+	    	str+='<td>'+data[0].sale[i]+'</td>';//
+	    } 
+	    str+='</tr></table>';
+	    //console.log(str);
+	    t.innerHTML=str;//把生成的HTML内容赋给table-wrapper
+	}
+	
+
+	//数据源
+	let sourceData = [{
+	    product: "手机",
+	    region: "华东",
+	    sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+	}, {
+	    product: "手机",
+	    region: "华北",
+	    sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
+	}, {
+	    product: "手机",
+	    region: "华南",
+	    sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
+	}, {
+	    product: "笔记本",
+	    region: "华东",
+	    sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
+	}, {
+	    product: "笔记本",
+	    region: "华北",
+	    sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
+	}, {
+	    product: "笔记本",
+	    region: "华南",
+	    sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
+	}, {
+	    product: "智能音箱",
+	    region: "华东",
+	    sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
+	}, {
+	    product: "智能音箱",
+	    region: "华北",
+	    sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
+	}, {
+	    product: "智能音箱",
+	    region: "华南",
+	    sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
+	}]
+</script>
+</html>

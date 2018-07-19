@@ -1,0 +1,26 @@
+.name{
+	width:100px;
+	font-family: "Arial Narrow", Arial, sans-serif;
+}
+#region-select{
+	margin-left:10px;
+	width:100px;
+}
+#product-select{
+	width:100px;
+}
+#month-select{
+	width:100px;
+}
+table{
+	border:1px solid #A8A3A3;
+}
+th,td{
+	width:80px;
+}
+th{
+	background-color: #EBF692;
+}
+td{
+	text-align: center;
+}
